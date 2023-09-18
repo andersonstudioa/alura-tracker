@@ -29,6 +29,7 @@ export default defineComponent({
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
       this.$emit('aoSalvarTarefa', {
+        id: Math.floor(Math.random() * 10000),
         duracaoEmSegundos: tempoDecorrido,
         descricao: this.descricao
       })

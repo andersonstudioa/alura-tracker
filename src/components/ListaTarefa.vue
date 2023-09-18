@@ -1,11 +1,18 @@
 <template>
   <BoxTarefa>
-    <div class="columns">
-      <div class="column is-7">
+    <div class="columns is-align-items-center">
+      <div class="column is-8">
         {{ tarefa.descricao || "Tarefa sem descrição" }}
       </div>
-      <div class="column">
+      <div class="column is-2">
         <CronometroTarefa :tempoEmSegundos="tarefa.duracaoEmSegundos" />
+      </div>
+      <div class="column has-text-right">
+        <button class="button" @click="excluir">
+          <span class="icon">
+            <font-awesome-icon :icon="['fas', 'trash']" />
+          </span>
+        </button>
       </div>
     </div>
   </BoxTarefa>
@@ -24,10 +31,21 @@ export default defineComponent({
     CronometroTarefa,
     BoxTarefa
   },
+  data() {
+    return {
+      tarefaAtual: this.tarefa
+    }
+  },
+  emits: ['aoExcluir'],
   props: {
     tarefa: {
       type: Object as PropType<ITarefa>,
       required: true
+    }
+  },
+  methods: {
+    excluir() {
+      this.$emit('aoExcluir', this.tarefaAtual.id)
     }
   }
 })

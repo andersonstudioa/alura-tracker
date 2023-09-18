@@ -6,7 +6,8 @@
     <div class="column is-three-quarter conteudo">
       <FormularioTarefa @aoSalvarTarefa="salvarTarefa" />
       <div class="listaTarefas">
-        <ListaTarefa v-for="(tarefaAtual, index) in tarefas" :key="index" :tarefa="tarefaAtual" />
+        <ListaTarefa v-for="(tarefaAtual, index) in tarefas" :key="index" :tarefa="tarefaAtual"
+          @aoExcluir="excluirTarefa" />
         <BoxTarefa v-if="listaEstaVazia">
           Você não está muito produtivo hoje :(
         </BoxTarefa>
@@ -43,6 +44,10 @@ export default defineComponent({
     },
     trocarTema(modoEscuroAtivo: boolean) {
       this.modoEscuroAtivo = modoEscuroAtivo
+    },
+    excluirTarefa(id: number) {
+      const index = this.tarefas.findIndex(item => item.id === id)
+      this.tarefas.splice(index, 1)
     }
   }
 });
@@ -55,12 +60,12 @@ export default defineComponent({
 
 main {
   --bg-primario: #FFF;
-  --texto-primario: #000;
+  --texto-primario: #4e4e4e;
 }
 
 main.modo-escuro {
-  --bg-primario: #161742;
-  --texto-primario: #FFF;
+  --bg-primario: #072746;
+  --texto-primario: #afafaf;
 }
 
 .conteudo {
