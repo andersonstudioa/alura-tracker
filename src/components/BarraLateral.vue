@@ -3,6 +3,9 @@
     <h1>
       <img src="../assets/logo.png" alt="Alura Tracker" />
     </h1>
+    <button class="button" @click="alternarTema">
+      {{ textoBotao }}
+    </button>
   </header>
 </template>
 
@@ -11,6 +14,23 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'BarraLateral',
+  emits: ['aoAlternarTema'],
+  data() {
+    return {
+      modoEscuroAtivo: false
+    }
+  },
+  computed: {
+    textoBotao() {
+      return this.modoEscuroAtivo ? 'Desativar modo escuro' : 'Ativar modo escuro'
+    }
+  },
+  methods: {
+    alternarTema() {
+      this.modoEscuroAtivo = !this.modoEscuroAtivo
+      this.$emit('aoAlternarTema', this.modoEscuroAtivo)
+    }
+  }
 });
 </script>
 
@@ -22,6 +42,7 @@ header {
   height: 100vh;
   text-align: center;
 }
+
 @media only screen and (max-width: 768px) {
   header {
     padding: 2.5rem;
