@@ -1,6 +1,6 @@
 <template>
   <section class="projetos">
-    <h1 class="title">Projetos</h1>
+    <h1 class="title">Cadastrar projeto</h1>
     <form @submit.prevent="salvar">
       <div class="field">
         <label for="nomeDoProjeto" class="label">Nome do projeto</label>
@@ -14,44 +14,50 @@
       </div>
     </form>
     <hr>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="projeto in projetos" :key="projeto.id">
-          <td>{{ projeto.id }}</td>
-          <td>{{ projeto.nome }}</td>
-        </tr>
-      </tbody>
-    </table>
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import IProjeto from "../interfaces/IProjeto"
+import { useStoreCustom } from "@/store"
 
 export default defineComponent({
-  name: 'ProjetosView',
+  name: 'FormularioProjetos',
+  props: {
+    id: {
+      type: String
+    }
+  },
+  mounted() {
+    if (this.id) {
+      const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
+      console.log(projeto)
+      this.nomeDoProjeto = projeto?.nome || ''
+    }
+  },
   data() {
     return {
-      nomeDoProjeto: '',
-      projetos: [] as IProjeto[]
+      nomeDoProjeto: ''
     }
   },
   methods: {
     salvar() {
-      const projeto: IProjeto = {
-        id: Math.floor(Math.random() * 10000),
-        nome: this.nomeDoProjeto
+      if (this.id) {
+        this.store.commit('ALTERA_PROJETO', {
+          id: this.id,
+          nome: this.nomeDoProjeto
+        })
+      } else {
+        this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
       }
-      this.projetos.push(projeto)
       this.nomeDoProjeto = ''
-      //alert(this.nomeDoProjeto)
+      this.$router.push('/projetos')
+    }
+  },
+  setup() {
+    const store = useStoreCustom()
+    return {
+      store
     }
   }
 })
