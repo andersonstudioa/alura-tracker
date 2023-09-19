@@ -3,15 +3,22 @@ import { createApp } from "vue";
 import App from "./App.vue";
 
 /* import the fontawesome core */
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
 
 /* import font awesome icon component */
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome/index";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
-import { faPlay, faStop, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import roteador from "./roteador";
 
 /* add icons to the library */
-library.add(faPlay, faStop, faTrash);
+library.add(fas, far, fab);
+dom.watch();
 
-createApp(App).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
+createApp(App)
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .use(roteador)
+  .mount("#app");

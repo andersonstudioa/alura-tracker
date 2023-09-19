@@ -3,13 +3,13 @@
     <CronometroTarefa :tempoEmSegundos="tempoEmSegundos" />
     <button class="button" @click="iniciar" :disabled="cronometroRodando">
       <span class="icon">
-        <font-awesome-icon icon="fas fa-play"></font-awesome-icon>
+        <i class="fas fa-play"></i>
       </span>
       <span>play</span>
     </button>
     <button class="button" @click="finalizar" :disabled="!cronometroRodando">
       <span class="icon">
-        <font-awesome-icon icon="fas fa-stop"></font-awesome-icon>
+        <i class="fas fa-stop"></i>
       </span>
       <span>stop</span>
     </button>

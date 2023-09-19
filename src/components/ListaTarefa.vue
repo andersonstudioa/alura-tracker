@@ -10,7 +10,7 @@
       <div class="column has-text-right">
         <button class="button" @click="excluir">
           <span class="icon">
-            <font-awesome-icon :icon="['fas', 'trash']" />
+            <i class="fa-solid fa-trash"></i>
           </span>
         </button>
       </div>
